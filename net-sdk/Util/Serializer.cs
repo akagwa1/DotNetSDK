@@ -18,5 +18,17 @@ namespace CB.Util
         {
             return null;
         }
+
+        internal static string getString(string value) { 
+
+        
+        // JObject object = new JObject();
+            return null;
+            
+           
+        
+        
+        }
+
     }
 }
