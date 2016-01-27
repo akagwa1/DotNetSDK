@@ -23,7 +23,7 @@ namespace net_sdk.Util
 
             try { 
             
-                parameters.Add("sdk","C#");
+               // parameters.Add("sdk","C#");
             
             }catch(JsonException e){
 
@@ -48,8 +48,10 @@ namespace net_sdk.Util
 
          
             HttpWebRequest r =(HttpWebRequest) System.Net.WebRequest.Create(url);
-            r.Timeout = 10000;
+            r.Timeout = 300000;
             r.Method = httpMethod;
+            r.ContentLength = 300000000000;
+
             r.UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0";
             r.ContentType = "application/json";
            Stream dos = null;
@@ -61,11 +63,21 @@ namespace net_sdk.Util
            try
            {
 
-               WebResponse resp = null;
-               resp = r.GetResponse();
+               HttpWebResponse resp = null;
+               StreamReader bodyreader;
+               string bodytext = "";
+
+               Stream requestStream;
+               r.Method = "POST";
+               requestStream = r.GetRequestStream();
+               requestStream.Write(Encoding.ASCII.GetBytes(parameters.ToString()),0,100);
+               requestStream.Close();
+               resp = (HttpWebResponse)r.GetResponse();
                dos = resp.GetResponseStream();
-               dos.Flush();
-               dos.Close();
+               bodyreader = new StreamReader(dos);
+               bodytext = bodyreader.ReadToEnd();
+              // dos.Flush();
+               //dos.Close();
                StreamReader rdr = new StreamReader(dos);
                // string feedback = rdr.ReadToEnd();
                //respCode
@@ -85,7 +97,7 @@ namespace net_sdk.Util
 
                CBResponse resp = new CBResponse(respMsg,respMsg,respCode,sid);
                return resp;
-           }
+           }catch(WebException e){}
 
            CBResponse respo = new CBResponse(respMsg,respMsg,respCode,sid);
            return respo;

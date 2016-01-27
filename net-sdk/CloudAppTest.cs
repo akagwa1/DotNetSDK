@@ -16,7 +16,7 @@ namespace net_sdk
         
         }
         public static void shouldCreateATable() {
-		CloudApp.init("bengi123", "MjFWX9D3JqTa76tcEHt9GL2ITB8Gzsp68S1+3oq7CBE=");
+            CloudApp.init("bengi1234", "3UVnLf/HANIYE+IxP2ZxHg==");
 		CloudTable table=new CloudTable("firstAppTb");
         table.save();
 
