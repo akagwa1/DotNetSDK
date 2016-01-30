@@ -28,14 +28,14 @@ namespace CB.Util
 
             postData.Add("key", CloudApp.AppKey);
             var jsonObj = Util.Serializer.Serialize(postData);
-            
 
-            var request = (HttpWebRequest)WebRequest.Create(CloudApp.ApiUrl + "/" + CloudApp.AppID + "/"+ url);
+
+            var request = (HttpWebRequest)WebRequest.Create(CloudApp.ApiUrl + url);//+ "/" + CloudApp.AppID + "/" + "/table/" + postData["tableName"].ToString());
 
             var data = Encoding.ASCII.GetBytes(jsonObj.ToString());
 
             request.Method = "POST";
-            request.ContentType = "application/json";
+            request.ContentType = "text/plain";
             request.ContentLength = data.Length;
 
             using (var stream = request.GetRequestStream())
@@ -43,7 +43,7 @@ namespace CB.Util
                 stream.Write(data, 0, data.Length);
             }
 
-            var response = await request.GetResponseAsync();
+            var response =  request.GetResponse();
 
             var responseString = new StreamReader(((HttpWebResponse)response).GetResponseStream()).ReadToEnd();
 

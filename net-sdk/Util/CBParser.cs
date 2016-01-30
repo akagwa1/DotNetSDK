@@ -11,6 +11,9 @@ using System.Net.NetworkInformation;
 using System.IO;
 using CB;
 using System.Web;
+using System.Security.Cryptography.X509Certificates;
+using System.Net.Security;
+using CB.Exception;
 
 
 namespace net_sdk.Util
@@ -19,69 +22,58 @@ namespace net_sdk.Util
     {
         static Random random = new Random();
         static string boundary1 = "---------" + randomString() + randomString() + randomString();
-        public static CBResponse callJson(string myUrl,string httpMethod,JObject parameters) {
+        public static CBResponse callJson(string myUrl,string httpMethod,Dictionary<string,Object> parameters) {
+          
+            System.Net.ServicePointManager.ServerCertificateValidationCallback = RemoteCertificateValidation;
+            System.Net.ServicePointManager.Expect100Continue = false;
 
             try { 
             
-               // parameters.Add("sdk","C#");
+                parameters.Add("sdk","C#");
             
-            }catch(JsonException e){
+            }catch(CloudBoostException e){
 
 
-                throw new JsonException(e.Message);
+                throw new CloudBoostException(e.Message);
             }
+            string parames = JsonConvert.SerializeObject(parameters);
 
-            string parames = parameters.ToString();
+            HttpWebRequest     r = (HttpWebRequest)System.Net.WebRequest.Create(myUrl);
+           
+            r.UserAgent = "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)";
+            int respCode = 0;
+            string respMsg = null;
+            r.Timeout = 100000;
 
-            
-            Uri url = null;
-
-            try {
-            
-            url = new Uri(myUrl);
-            
-            }catch(UriFormatException e){
-
-                throw new UriFormatException(e.Message);
-
-            }
-
-         
-            HttpWebRequest r =(HttpWebRequest) System.Net.WebRequest.Create(url);
-            r.Timeout = 300000;
-            r.Method = httpMethod;
-            r.ContentLength = 300000000000;
-
-            r.UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0";
             r.ContentType = "application/json";
-           Stream dos = null;
-           string respMsg = null;
-           int respCode = 0;
+           
            string inputString = null;
            string sid = null;
 
            try
            {
 
-               HttpWebResponse resp = null;
                StreamReader bodyreader;
                string bodytext = "";
+               byte[] contentToWrite = Encoding.ASCII.GetBytes(parames);
 
-               Stream requestStream;
-               r.Method = "POST";
-               requestStream = r.GetRequestStream();
-               requestStream.Write(Encoding.ASCII.GetBytes(parameters.ToString()),0,100);
-               requestStream.Close();
-               resp = (HttpWebResponse)r.GetResponse();
-               dos = resp.GetResponseStream();
-               bodyreader = new StreamReader(dos);
-               bodytext = bodyreader.ReadToEnd();
-              // dos.Flush();
-               //dos.Close();
-               StreamReader rdr = new StreamReader(dos);
-               // string feedback = rdr.ReadToEnd();
-               //respCode
-               //respMsg
+               r.Method = httpMethod;
+            
+               using ( var requestStream = r.GetRequestStream())
+               {
+                   requestStream.Write(contentToWrite, 0, contentToWrite.Length);
+               }
+
+            
+               try
+               {
+                   var responseString = r.GetResponse() as HttpWebResponse;//GetResponseStream()).ReadToEnd();
+
+               }catch(IOException e){}catch(Exception e){
+
+                   Console.WriteLine(e.Message);
+               
+               }
                if (respCode != 200)
                {
 
@@ -91,16 +83,20 @@ namespace net_sdk.Util
                    return res;
                }
 
-               inputString = rdr.ReadToEnd();
-
            }catch(IOException e){
 
                CBResponse resp = new CBResponse(respMsg,respMsg,respCode,sid);
                return resp;
-           }catch(WebException e){}
+           }
+           catch(WebException e){
+           }
 
            CBResponse respo = new CBResponse(respMsg,respMsg,respCode,sid);
            return respo;
+        }
+        private static bool RemoteCertificateValidation(Object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
         }
 
         private static void newline() {

@@ -63,35 +63,6 @@ namespace net_sdk
                 throw new CloudBoostException(e.Message);
             }
 
-            //try
-            //{
-            //    this.document = new JObject();
-            //    this.document.Add("name", "firtappTb");
-            //    this.document.Add("appId", CloudApp.AppID);
-            //    this.document.Add("_type", "table");
-            //    if (tableName.ToLower() == "user")
-            //    {
-            //        this.document.Add("type", "user");
-            //        this.document.Add("maxCount", 1);
-            //    }
-            //    else if (tableName.ToLower() == "role")
-            //    {
-            //        this.document.Add("type", "role");
-            //        this.document.Add("maxCount", 1);
-            //    }
-            //    else
-            //    {
-            //        this.document.Add("type", "custom");
-            //        this.document.Add("maxCount", 9999);
-            //    }
-
-            //    this.document.Add("columns", this.document.GetValue("type"));
-            //}
-            //catch (CloudBoostException e2)
-            //{
-
-            //    throw new CloudBoostException(e2.Message);
-            //}	
         }
         	
         public CloudTable()
@@ -116,13 +87,14 @@ namespace net_sdk
             {
                 throw new CloudBoostException("App Id is null");
             }
-        	JObject parames  = new JObject();
+        	//JObject parames  = new JObject();
+            Dictionary<string,Object> parames = new Dictionary<string,Object>();
 		CloudTable thisObj = this;
 		try {
 		parames.Add("data", document);		
 		parames.Add("key", CloudApp.AppKey);
-		String url = CloudApp.ServerUrl+"/"+CloudApp.AppID+"/table/"+this.document.GetValue("name");
-		CBResponse response=CBParser.callJson(url, "PUT", parames);
+        String url = CloudApp.ApiUrl + "/" + CloudApp.AppID+"/table/" + this.document.GetValue("name");
+		CBResponse response=CBParser.callJson(url, "POST", parames);
 			if(response.getStatusCode() == 200){
 				JObject body = new JObject(response.getResponseBody());
 				thisObj.document = body;

@@ -71,6 +71,7 @@
     <Compile Include="CloudCallback.cs" />
     <Compile Include="CloudNotification.cs" />
     <Compile Include="CloudObject.cs" />
+    <Compile Include="CloudObjectCallback.cs" />
     <Compile Include="CloudQuery.cs" />
     <Compile Include="CloudRole.cs" />
     <Compile Include="CloudSearch.cs" />

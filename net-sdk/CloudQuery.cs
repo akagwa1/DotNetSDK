@@ -410,10 +410,10 @@ namespace CB
             return (CloudObject)result;
         }
 
-        public async Task<CloudObject> FindOne()
+        public net_sdk.Util.CBResponse FindOne()
         {
-            var result = await Util.CloudRequest.POST("/ " + this.dictionary["tableName"] + "/findOne", this.dictionary);
-            return (CloudObject)result;
+            var result = net_sdk.Util.CBParser.callJson(CloudApp.ApiUrl+"/" + this.dictionary["tableName"] + "/findOne","POST", this.dictionary);
+            return (net_sdk.Util.CBResponse)result;
         }
     }
 }

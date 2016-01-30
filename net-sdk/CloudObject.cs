@@ -4,19 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
+using CB.Exception;
+using Newtonsoft.Json.Linq;
+using net_sdk.Util;
+using Newtonsoft.Json;
 
 namespace CB
 {
     public class CloudObject
     {
         protected Dictionary<string, Object> dictionary = new Dictionary<string, Object>();
+        public ACL acl;
+       
         public CloudObject(string tableName)
         {
             dictionary.Add("_tableName", tableName);
             dictionary.Add("_type", "custom");
             dictionary.Add("_id", null);
             dictionary.Add("ACL", new CB.ACL());
+            dictionary.Add("_isSearchable",false);
         }
+        
 
         public CB.ACL ACL
         {
@@ -150,12 +158,18 @@ namespace CB
 
         public async Task<CloudObject> SaveAsync()
         {
-            Dictionary<string, Object> postData = new Dictionary<string, object>();
-            postData.Add("document", this);
+            try
+            {
+                Dictionary<string, Object> postData = new Dictionary<string, object>();
+                
+                postData.Add("document", this);
 
-            var result = await Util.CloudRequest.POST("/save", postData);
+                var result = await Util.CloudRequest.POST("/save", postData);
 
-            this.dictionary = (Dictionary<string, Object>)result;
+                this.dictionary = (Dictionary<string, Object>)result;
+            }catch(CloudBoostException e){
+                throw new CloudBoostException(e.Message);
+            }
 
             return this;
         }

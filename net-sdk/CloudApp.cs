@@ -12,7 +12,7 @@ namespace CB
     public class CloudApp
     {
         private static string serverUrl;
-        
+        private static string serviceUrl;
         public static string ServerUrl
         {
             get
@@ -23,18 +23,27 @@ namespace CB
                 }
                 else
                 {
+                   
                     return @"https://api.cloudboost.io";
                 }
             }
             set { serverUrl = value; }
         }
+        public static string ServiceUrl
+        {
+            get
+            {
+                return @"https://service.cloudboost.io";
+            }
+        }
+	
         public static string AppID { get; set; }
         public static string AppKey { get; set; }
         public static string ApiUrl
         {
             get
             {
-                return serverUrl+"/api";
+                return ServerUrl;
             }
         }
 
