@@ -18,7 +18,8 @@ namespace net_sdk
            // shouldSaveRecord();
            // save();
            // shouldCreateAnApp();
-            find();
+           // find();
+            delete();
            
 
         }
@@ -35,26 +36,14 @@ namespace net_sdk
         
         }
 
-      	public static void shouldCreateAnApp(){
+      	public static void delete(){
             CloudApp.init("bengi123", "MjFWX9D3JqTa76tcEHt9GL2ITB8Gzsp68S1+3oq7CBE=");
-            Dictionary<string, Object> parames = new Dictionary<string, Object>();
-			 parames.Add("email", "hello@cloudboost.io");
-			 parames.Add("password", "sample");
-			String url=CloudApp.ServerUrl+"/user/signin";
-            CBResponse response = CBParser.callJson(url, "POST", parames);
-			if(response.getStatusCode()==200){
-				JObject obj=new JObject(response.getResponseBody());
-				String url2=CloudApp.ServerUrl+"/app/create";
-				String appid="";//PrivateMethod._makeString();
-				String appname="";//PrivateMethod._makeString();
-				JObject param=new JObject();
-                parames.Add("appId", appid);
-                parames.Add("name", appname);
-                parames.Add("userId", obj.GetValue("_id"));
-				CBResponse response2=CBParser.callJson(url2, "POST", parames);
+
+            CloudTable ct = new CloudTable();
+            ct.delete();
+           
 				
-				
-			}else response.getStatusMessage();
+			
 	}
         public static void save() {
 

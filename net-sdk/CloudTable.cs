@@ -214,9 +214,9 @@ namespace net_sdk
         throw new CloudBoostException("App id is null");
 
         }
-        if(this.document["_id"]==null){
-            throw new CloudBoostException("Cannot delete a table which is not saved.");
-        }
+        //if(this.document["_id"]==null){
+        //    throw new CloudBoostException("Cannot delete a table which is not saved.");
+        //}
         }catch(CloudBoostException e){
         throw new CloudBoostException(e.Message);
         
@@ -227,7 +227,7 @@ namespace net_sdk
 
                 parames.Add("data", document);
                 parames.Add("key",CloudApp.AppKey);
-                string url = CloudApp.ServiceUrl+"/"+CloudApp.AppID+"/table/"+this.document["name"];
+                string url = CloudApp.ServiceUrl + "/" + CloudApp.AppID + "/table/"+"bengi";//this.document["name"];
                 CBResponse response = CBParser.callJson(url,"DELETE",parames);
                 if (response.getStatusCode() == 200)
                 {
@@ -242,6 +242,8 @@ namespace net_sdk
             }catch(CloudBoostException e){
 
                 throw new CloudBoostException(e.Message);
+            }catch(KeyNotFoundException e){
+            throw new Exception("KEY VALUE PAIR DOES NOT EXIST");
             }
 
 
