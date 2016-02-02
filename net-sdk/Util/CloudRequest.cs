@@ -32,7 +32,7 @@ namespace CB.Util
 
             var request = (HttpWebRequest)WebRequest.Create(CloudApp.ApiUrl + url);//+ "/" + CloudApp.AppID + "/" + "/table/" + postData["tableName"].ToString());
 
-            var data = Encoding.ASCII.GetBytes(jsonObj.ToString());
+            var data = Encoding.Default.GetBytes(jsonObj.ToString());
 
             request.Method = "POST";
             request.ContentType = "text/plain";

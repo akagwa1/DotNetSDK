@@ -11,6 +11,7 @@ namespace CB
 
     public class CloudApp
     {
+        public static String SESSION_ID = null;
         private static string serverUrl;
         private static string serviceUrl;
         public static string ServerUrl
@@ -36,7 +37,7 @@ namespace CB
                 return @"https://service.cloudboost.io";
             }
         }
-	
+        public static String masterKey = null;
         public static string AppID { get; set; }
         public static string AppKey { get; set; }
         public static string ApiUrl

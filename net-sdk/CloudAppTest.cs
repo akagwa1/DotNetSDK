@@ -18,14 +18,14 @@ namespace net_sdk
            // shouldSaveRecord();
            // save();
            // shouldCreateAnApp();
-           // find();
-            delete();
+           find();
+            //delete();
            
 
         }
         public static void shouldSaveRecord() {
-            CloudApp.init("bengi123", "MjFWX9D3JqTa76tcEHt9GL2ITB8Gzsp68S1+3oq7CBE=");
-		CloudTable table=new CloudTable("firstAppTb");
+            CloudApp.init("bengi1234", "3UVnLf/HANIYE+IxP2ZxHg==");
+            CloudTable table = new CloudTable("firstAppTb");
         table.save();
 
         }

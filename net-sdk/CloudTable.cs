@@ -131,7 +131,7 @@ namespace net_sdk
 		parames.Add("data", document);		
 		parames.Add("key", CloudApp.AppKey);
         String url = CloudApp.ApiUrl + "/" + CloudApp.AppID+"/table/" + this.document["name"];
-		CBResponse response=CBParser.callJson(url, "POST", parames);
+		CBResponse response=CBParser.callJson(url, "PUT", parames);
 			if(response.getStatusCode() == 200){
                 JObject body = new JObject();
                 body = (JObject)response.getResponseBody();

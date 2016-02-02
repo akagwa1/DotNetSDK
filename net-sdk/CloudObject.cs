@@ -13,7 +13,7 @@ namespace CB
 {
     public class CloudObject
     {
-        protected Dictionary<string, Object> dictionary = new Dictionary<string, Object>();
+        public Dictionary<string, Object> dictionary = new Dictionary<string, Object>();
         public ACL acl;
        
         public CloudObject(string tableName)

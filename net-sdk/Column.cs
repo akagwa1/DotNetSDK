@@ -307,7 +307,7 @@ namespace net_sdk
        
        }
 
-       void setIsDeletable(bool value) {
+       public void setIsDeletable(bool value) {
 
            try {
 
@@ -320,7 +320,7 @@ namespace net_sdk
        
        }
 
-       bool getIsDeletable() {
+      public bool getIsDeletable() {
 
            try {
 
@@ -335,7 +335,7 @@ namespace net_sdk
        
        }
 
-       void setIsEditable(bool value) {
+      public void setIsEditable(bool value) {
 
            try {
 
@@ -348,7 +348,7 @@ namespace net_sdk
        
        }
 
-       bool getIsEditable() {
+      public bool getIsEditable() {
            try {
 
                return bool.Parse(document["isEditable"].ToString());
@@ -362,7 +362,7 @@ namespace net_sdk
        
        }
 
-       void setIsRenamable(bool value) {
+      public void setIsRenamable(bool value) {
 
            try {
 
@@ -376,7 +376,7 @@ namespace net_sdk
        
        }
 
-       bool getIsRenamable() {
+      public bool getIsRenamable() {
 
            try {
 
