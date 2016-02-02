@@ -105,10 +105,9 @@ namespace net_sdk
            {
                return false;
            }
-           else
-           {
+           
                return true;
-           }
+           
        }
        public static bool isValidURL(string pUrl)
        {
@@ -133,6 +132,30 @@ namespace net_sdk
                return false;
            }
            return true;
+       }
+       public static bool _columnNameValidation(String columnName)
+       {
+           char c = columnName.ElementAt(0);
+           bool isDigit = (c >= '0' && c <= '9');
+           if (isDigit)
+           {
+               return false;
+           }
+
+           if (columnName.Contains("^S+$"))
+           {
+               return false;
+           }
+
+           Regex pattern = new Regex("[~`!#$%\\^&*+=\\-\\[\\]\\';,/{}|\":<>\\?]");
+           MatchCollection matches = pattern.Matches(columnName);
+           if (matches.Count > 0)
+           {
+               return false;
+           }
+           
+               return true;
+           
        }
        public static bool _columnValidation(Column column, CloudTable table)
        {

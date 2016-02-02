@@ -24,10 +24,20 @@ namespace net_sdk
        }
 
        public Column(string columnName, DataType dataType){
-           
-       
-       
-      // if(){}
+
+
+
+           if (!PrivateValidation._columnNameValidation(columnName))
+           {
+               try
+               {
+                   throw new CloudBoostException("Invalid Column Name");
+               }
+               catch (CloudBoostException e)
+               {
+                   throw new CloudBoostException(e.Message); ;
+               }
+           }
 
             
            try {
@@ -45,8 +55,7 @@ namespace net_sdk
                dictionaryDoc.Add("isEditable", true);
                dictionaryDoc.Add("isRenamable", false);
 
-              // this.document = new JObject();
-              // document = Serializer.Serialize(dictionaryDoc);
+              
 
            }
            catch (CloudBoostException e)
@@ -60,8 +69,18 @@ namespace net_sdk
 
        public Column(String columnName,DataType dataType,Boolean required,Boolean unique) {
 
-       
-      // if(){}
+
+           if (!PrivateValidation._columnNameValidation(columnName))
+           {
+               try
+               {
+                   throw new CloudBoostException("Invalid Column Name");
+               }
+               catch (CloudBoostException e)
+               {
+                   throw new CloudBoostException(e.Message);
+               }
+           }
            try
            {
                this.dictionaryDoc = new Dictionary<string, object>();
