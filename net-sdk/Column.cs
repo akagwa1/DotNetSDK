@@ -13,7 +13,7 @@ namespace net_sdk
 {
    public class Column
     {
-       public JObject document;
+       public Dictionary<string,Object> document;
 
        Dictionary<string, Object> dictionaryDoc = new Dictionary<string, Object>();
 
@@ -45,8 +45,8 @@ namespace net_sdk
                dictionaryDoc.Add("isEditable", true);
                dictionaryDoc.Add("isRenamable", false);
 
-               this.document = new JObject();
-               document = Serializer.Serialize(dictionaryDoc);
+              // this.document = new JObject();
+              // document = Serializer.Serialize(dictionaryDoc);
 
            }
            catch (CloudBoostException e)
@@ -76,8 +76,8 @@ namespace net_sdk
                dictionaryDoc.Add("isEditable", true);
                dictionaryDoc.Add("isRenamable", false);
 
-               this.document = new JObject();
-               document = Serializer.Serialize(dictionaryDoc);
+              // this.document = new JObject();
+              // document = Serializer.Serialize(dictionaryDoc);
            }
            catch (CloudBoostException e)
            {
@@ -93,7 +93,7 @@ namespace net_sdk
            try {
                
 
-             return  this.document.GetValue("name").ToString();
+             return  this.document["name"].ToString();
            
            
            }catch(CloudBoostException e){
@@ -120,7 +120,7 @@ namespace net_sdk
           
            try {
 
-               string datatype = document.GetValue("dataType").ToString();
+               string datatype = document["dataType"].ToString();
                //return (DataType)datatype;
                return datatype;
            
@@ -169,7 +169,7 @@ namespace net_sdk
 
            try {
 
-               document.GetValue("required");
+               bool.Parse(document["required"].ToString());
                return true;
            
            
@@ -200,12 +200,13 @@ namespace net_sdk
 
 
            try { 
-            document.GetValue("unique");
+            bool.Parse(document["unique"].ToString());
             return true;
            
            }catch(CloudBoostException e){
 
                throw new CloudBoostException(e.Message);
+               return false;
            }
        
        
@@ -228,11 +229,11 @@ namespace net_sdk
 
        public CloudTable getRelatedTo() {
 
-           JObject table = null;
+           Dictionary<string,Object> table = null;
            CloudTable tableObject= new CloudTable();
            try{
-           
-           table = (JObject)document.GetValue("relatedTo");
+
+               table = (Dictionary<string, Object>)document["relatedTo"];
            
            }catch(CloudBoostException e){
            throw new CloudBoostException(e.Message);
@@ -262,7 +263,7 @@ namespace net_sdk
 
            try {
 
-               return document.GetValue("relatedToType").ToString();
+               return document["relatedToType"].ToString();
            
            }
            catch(CloudBoostException e){
@@ -293,7 +294,7 @@ namespace net_sdk
 
            try {
 
-               return document.GetValue("relationType").ToString();
+               return document["relationType"].ToString();
            
            }catch(CloudBoostException e){
 
@@ -323,7 +324,7 @@ namespace net_sdk
 
            try {
 
-          return  bool.Parse(document.GetValue("isDeletable").ToString());
+          return  bool.Parse(document["isDeletable"].ToString());
            
            }catch(CloudBoostException e){
 
@@ -350,7 +351,7 @@ namespace net_sdk
        bool getIsEditable() {
            try {
 
-               return bool.Parse(document.GetValue("isEditable").ToString());
+               return bool.Parse(document["isEditable"].ToString());
            
            
            }catch(CloudBoostException e){
@@ -379,7 +380,7 @@ namespace net_sdk
 
            try {
 
-               return bool.Parse(document.GetValue("isRenamable").ToString());
+               return bool.Parse(document["isRenamable"].ToString());
            
            }catch(CloudBoostException e){
 
@@ -389,9 +390,6 @@ namespace net_sdk
            }
        
        }
-
-
-
 
 
      

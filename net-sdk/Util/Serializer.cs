@@ -32,7 +32,7 @@ namespace CB.Util
 
         internal static Dictionary<string,Object> Deserialize(JObject value)
         {
-            return null;
+            return (Dictionary<string, Object>)JsonConvert.DeserializeObject(value.ToString());
         }
 
         internal static string getString(string value) { 
