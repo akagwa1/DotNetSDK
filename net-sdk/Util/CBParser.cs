@@ -39,13 +39,14 @@ namespace net_sdk.Util
             string parames = JsonConvert.SerializeObject(parameters);
 
             HttpWebRequest     r = (HttpWebRequest)System.Net.WebRequest.Create(myUrl);
-           
-            r.UserAgent = "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)";
+
+            r.UserAgent = "Mozilla/5.0 (Windows NT 6.1; rv:26.0) Gecko/20100101 Firefox/26.0";
             int respCode = 0;
             string respMsg = null;
             r.Timeout = 100000;
 
             r.ContentType = "application/json";
+           // r.RequestUri =  myUrl;
            
            string inputString = null;
            string sid = null;
@@ -55,12 +56,13 @@ namespace net_sdk.Util
 
                StreamReader bodyreader;
                string bodytext = "";
-               byte[] contentToWrite = Encoding.ASCII.GetBytes(parames);
+               byte[] contentToWrite = Encoding.Default.GetBytes(parames);// Byte.Parse(parames, null);// Encoding.ASCII.GetBytes(parames);
 
                r.Method = httpMethod;
             
                using ( var requestStream = r.GetRequestStream())
                {
+                  
                    requestStream.Write(contentToWrite, 0, contentToWrite.Length);
                }
 

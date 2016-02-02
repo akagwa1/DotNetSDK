@@ -116,8 +116,7 @@ namespace net_sdk
                 throw new CloudBoostException(e.Message);
                 return null;
             }
-        }
-       
+        }       
         public void save()
         {
 
@@ -145,9 +144,7 @@ namespace net_sdk
 		} catch (JsonException e) {
             throw new JsonException(e.Message);
 		}
-	}
-      
-        
+	}        
         public void addColumn(Column column) {
         //if(!PrivateMethod._columnValidation(column, this)){
         //    throw new CloudException("Invalid Column Found, Do Not Use Reserved Column Names");
