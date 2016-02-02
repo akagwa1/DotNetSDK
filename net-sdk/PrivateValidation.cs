@@ -13,7 +13,7 @@ namespace net_sdk
    public class PrivateValidation
     {
 
-       static ArrayList _defaultColumns(string type)
+       public static ArrayList _defaultColumns(string type)
        {
            ArrayList col = new ArrayList();
            Column id = new Column("id", Column.DataType.Id, true, true);
@@ -84,7 +84,7 @@ namespace net_sdk
            }
            return col;
        }
-       static bool _tableValidation(string tableName)
+       public static bool _tableValidation(string tableName)
        {
            char c = tableName.ElementAt(0);
            bool isDigit = (c >= '0' && c <= '9');

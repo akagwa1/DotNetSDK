@@ -19,12 +19,13 @@ namespace net_sdk
 
        public Dictionary<string,Object> document = new Dictionary<string,Object>();
         public CloudTable(string tableName) {
-
-            try {
-                if(string.IsNullOrEmpty(tableName)){
-
-                    throw new CloudBoostException("INVALID TABLE NAME");
-                }
+        if(!PrivateValidation._tableValidation(tableName)){
+			try {
+				throw new CloudBoostException("Invalid Table Name");
+			} catch (CloudBoostException e) {
+				throw new CloudBoostException("Invalid Table Name");
+			}
+		    }
 
                 try
                 {
@@ -56,10 +57,7 @@ namespace net_sdk
                     throw new CloudBoostException(e2.Message);
                 }	
 
-            }catch(CloudBoostException e){
-
-                throw new CloudBoostException(e.Message);
-            }
+               
 
         }
         	
@@ -146,9 +144,10 @@ namespace net_sdk
 		}
 	}        
         public void addColumn(Column column) {
-        //if(!PrivateMethod._columnValidation(column, this)){
-        //    throw new CloudException("Invalid Column Found, Do Not Use Reserved Column Names");
-        //}
+            if (!PrivateValidation._columnValidation(column, this))
+            {
+                throw new CloudBoostException("Invalid Column Found, Do Not Use Reserved Column Names");
+            }
 		try{
 
             ArrayList columnList = new ArrayList((ArrayList)this.document["columns"]);
@@ -161,10 +160,10 @@ namespace net_sdk
 	}
         public void setColumn(Column column)
         {
-            //if (!PrivateMethod._columnValidation(column, this))
-            //{
-            //    throw new CloudException("Invalid Column Found, Do Not Use Reserved Column Names");
-            //}
+            if (!PrivateValidation._columnValidation(column, this))
+            {
+                throw new CloudBoostException("Invalid Column Found, Do Not Use Reserved Column Names");
+            }
             try
             {
                 string name = column.getColumnName();
@@ -204,6 +203,30 @@ namespace net_sdk
                 throw new CloudBoostException(e.Message);
             }
         
+        }
+        public void updateColumn(Column column)
+        {
+            Column col = null;
+            try
+            {
+                List<Object> columnList = new List<Object>(this.document.Select(columns => columns.Value));
+                for (int i = 0; i < columnList.Count; i++)
+                {
+                    //to be revised
+                    if (columnList.ElementAt(i) == column.getColumnName())
+                    {
+                        columnList.Insert(i, column);
+                        this.document.Add("columns", columnList);
+                        break;
+                    }
+                }
+            }
+            catch (CloudBoostException e)
+            {
+
+               throw new CloudBoostException(e.Message);
+            }
+
         }
         public void delete() { 
         try{
