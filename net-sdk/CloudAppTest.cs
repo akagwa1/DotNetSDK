@@ -32,6 +32,7 @@ namespace net_sdk
 
         public static void find() {
             CloudQuery qq = new CloudQuery("pengi");
+            CloudApp.init("bengi123", "MjFWX9D3JqTa76tcEHt9GL2ITB8Gzsp68S1+3oq7CBE=");
             qq.FindOne();
         
         }

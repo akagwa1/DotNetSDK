@@ -128,7 +128,7 @@ namespace net_sdk
 		try {
 		parames.Add("data", document);		
 		parames.Add("key", CloudApp.AppKey);
-        String url = CloudApp.ApiUrl + "/" + CloudApp.AppID+"/table/" + this.document["name"];
+        String url = CloudApp.ServiceUrl + "/" + CloudApp.AppID+"/table/" + this.document["name"];
 		CBResponse response=CBParser.callJson(url, "PUT", parames);
 			if(response.getStatusCode() == 200){
                 JObject body = new JObject();
@@ -150,13 +150,27 @@ namespace net_sdk
             }
 		try{
 
-            ArrayList columnList = new ArrayList((ArrayList)this.document["columns"]);
-            columnList.Add(column.document);
-		    this.document.Add("columns", columnList);
+            JArray columnList = new JArray(this.document["columns"].ToString());
+            columnList.Add(column.dictionaryDoc);
+		    this.document.Add("columns", (Object)columnList);
 		} catch (CloudBoostException e) {
 
             throw new CloudBoostException(e.Message);
-		}	
+		}	catch(ArgumentException e2){
+
+            throw new ArgumentException(e2.Message);
+        }
+	}
+        public void addColumn(Column[] column){
+		for(int i=0; i<column.Length; i++){
+            try
+            {
+                this.addColumn(column[i]);
+            }catch(CloudBoostException e){
+
+                throw new CloudBoostException(e.Message);
+            }
+		}
 	}
         public void setColumn(Column column)
         {
@@ -269,6 +283,37 @@ namespace net_sdk
 
         
         }
+        public static void get(CloudTable table){
+		if(CloudApp.AppID == null){
+			throw new CloudBoostException("App Id is missing");
+		}
+		
+		Dictionary<string,Object> parames = new Dictionary<string,Object>();
+		try {
+		parames.Add("key", CloudApp.AppKey);
+		parames.Add("appId", CloudApp.AppID);
+		String url = CloudApp.ServiceUrl+"/"+CloudApp.AppID+"/table/"+table.getTableName();
+		CBResponse response=CBParser.callJson(url, "POST", parames);
+
+			if(response.getStatusCode() == 200){
+                Dictionary<string,Object> respObjectDictionary = new Dictionary<string,Object>();
+				//JObject body = new JObject(response.getResponseBody());
+               // respObjectDictionary = body;
+				//CloudTable obj = new CloudTable(body["name"].ToString());
+				//obj.document = body;
+				
+			}else{
+				
+				throw new CloudBoostException(response.getResponseBody());
+				
+			}
+			
+		} catch (CloudBoostException e) {
+			throw new CloudBoostException("Failed to get table, may be inexistent");
+			
+		}
+	}
+	
 
 
 

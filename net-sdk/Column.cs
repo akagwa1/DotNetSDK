@@ -15,7 +15,7 @@ namespace net_sdk
     {
        public Dictionary<string,Object> document;
 
-       Dictionary<string, Object> dictionaryDoc = new Dictionary<string, Object>();
+       public Dictionary<string, Object> dictionaryDoc = new Dictionary<string, Object>();
 
        public enum DataType { 
        
@@ -112,12 +112,16 @@ namespace net_sdk
            try {
                
 
-             return  this.document["name"].ToString();
+             return  this.dictionaryDoc["name"].ToString();
            
            
            }catch(CloudBoostException e){
 
                throw new CloudBoostException(e.Message);
+           }catch(ArgumentNullException e2){
+           
+           
+           throw new ArgumentNullException(e2.Message);
            }
 
 

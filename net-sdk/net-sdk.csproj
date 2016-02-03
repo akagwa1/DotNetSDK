@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{EC564616-2D85-471E-B73D-75B2410DBF8C}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>net_sdk</RootNamespace>
     <AssemblyName>net-sdk</AssemblyName>
@@ -86,6 +86,7 @@
     <Compile Include="Util\CBResponse.cs" />
     <Compile Include="Util\CloudRequest.cs" />
     <Compile Include="Util\Serializer.cs" />
+    <Compile Include="Util\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Fakes Include="Fakes\WebSocket4Net.fakes" />

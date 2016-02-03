@@ -412,7 +412,7 @@ namespace CB
 
         public net_sdk.Util.CBResponse FindOne()
         {
-            var result = net_sdk.Util.CBParser.callJson(CloudApp.ApiUrl+"/" + this.dictionary["tableName"] + "/findOne","POST", this.dictionary);
+            var result = net_sdk.Util.CBParser.callJson(CloudApp.ApiUrl+"/data/"+"pengi123"+this.dictionary["tableName"] + "/find", "POST", this.dictionary);
             return (net_sdk.Util.CBResponse)result;
         }
     }

@@ -8,16 +8,17 @@ namespace TestDot_Net
 {
    public class Program
     {
-       
-        //static void Main(string[] args)
-        //{
+
+       static void Main(string[] args)
+       {
 
 
-        //    AppTest appTest = new AppTest();
-           
-           
+           CloudTableTest cloudTableTester = new CloudTableTest();
+           cloudTableTester.SequentialTests();
 
 
-        //}
+
+
+       }
     }
 }
