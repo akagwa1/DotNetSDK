@@ -11,10 +11,24 @@ namespace TestDot_Net
 
        static void Main(string[] args)
        {
+           try
+           {
 
+               CloudTableTest cloudTableTester = new CloudTableTest();
+               CloudObjectTest cloudObjectTester = new CloudObjectTest();
+               cloudObjectTester.saveArray();
+               cloudObjectTester.saveArrayWithWrongDataType();
+               cloudObjectTester.SaveData();
+               cloudObjectTester.ShouldNotSaveDuplicateValue();
+               cloudObjectTester.ShouldNotSaveWithoutRequiredColumn();
+               cloudObjectTester.ShouldNotSaveWithWrongDataType();
+               cloudObjectTester.shouldUpdateVersionOnUpdate();
+               cloudObjectTester.updateAfterSave();
+               //cloudTableTester.SequentialTests();
+           }catch(Exception ex){
 
-           CloudTableTest cloudTableTester = new CloudTableTest();
-           cloudTableTester.SequentialTests();
+               throw new Exception(ex.Message);
+           }
 
 
 
