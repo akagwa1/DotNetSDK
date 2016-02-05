@@ -32,6 +32,7 @@ namespace TestDot_Net
         initialize();
 
 		CloudTable employee = createEmployee();
+        Console.WriteLine(employee.document.Keys.ToString());
         employee.save();
         CloudTable company = createCompany();
         company.save();

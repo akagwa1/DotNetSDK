@@ -150,9 +150,10 @@ namespace net_sdk
             }
 		try{
 
-            JArray columnList = new JArray(this.document["columns"].ToString());
-            columnList.Add(column.dictionaryDoc);
-		    this.document.Add("columns", (Object)columnList);
+            List<string> columnList = new List<string>();
+            columnList.Add(this.document["columns"].ToString());
+            this.document.Remove("columns");
+		    this.document.Add("columns", columnList);
 		} catch (CloudBoostException e) {
 
             throw new CloudBoostException(e.Message);
