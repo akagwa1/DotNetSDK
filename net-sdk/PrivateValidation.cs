@@ -37,11 +37,11 @@ namespace net_sdk
            acl.setIsDeletable(false);
            acl.setIsEditable(false);
 
-           col.Add(id.document);
-           col.Add(expires.document);
-           col.Add(createdAt.document);
-           col.Add(updatedAt.document);
-           col.Add(acl.document);
+           col.Add(id.dictionaryDoc);
+           col.Add(expires.dictionaryDoc);
+           col.Add(createdAt.dictionaryDoc);
+           col.Add(updatedAt.dictionaryDoc);
+           col.Add(acl.dictionaryDoc);
 
            if (type == "custom")
            {
@@ -68,10 +68,10 @@ namespace net_sdk
                roles.setRelationType("table");
                roles.setIsDeletable(false);
                roles.setIsEditable(false);
-               col.Add(username.document);
-               col.Add(roles.document);
-               col.Add(password.document);
-               col.Add(email.document);
+               col.Add(username.dictionaryDoc);
+               col.Add(roles.dictionaryDoc);
+               col.Add(password.dictionaryDoc);
+               col.Add(email.dictionaryDoc);
                return col;
            }
            else if (type == "role")
@@ -79,7 +79,7 @@ namespace net_sdk
                Column name = new Column("name", Column.DataType.Text, true, true);
                name.setIsDeletable(false);
                name.setIsEditable(false);
-               col.Add(name.document);
+               col.Add(name.dictionaryDoc);
                return col;
            }
            return col;

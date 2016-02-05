@@ -13,7 +13,7 @@ namespace net_sdk
 {
    public class Column
     {
-       public Dictionary<string,Object> document;
+      // public Dictionary<string,Object> dictionaryDoc;
 
        public Dictionary<string, Object> dictionaryDoc = new Dictionary<string, Object>();
 
@@ -95,8 +95,8 @@ namespace net_sdk
                dictionaryDoc.Add("isEditable", true);
                dictionaryDoc.Add("isRenamable", false);
 
-              // this.document = new JObject();
-              // document = Serializer.Serialize(dictionaryDoc);
+              // this.dictionaryDoc = new JObject();
+              // dictionaryDoc = Serializer.Serialize(dictionaryDoc);
            }
            catch (CloudBoostException e)
            {
@@ -143,7 +143,7 @@ namespace net_sdk
           
            try {
 
-               string datatype = document["dataType"].ToString();
+               string datatype = dictionaryDoc["dataType"].ToString();
                //return (DataType)datatype;
                return datatype;
            
@@ -177,7 +177,7 @@ namespace net_sdk
 
            try {
 
-               document.Add("required",required);
+               dictionaryDoc.Add("required",required);
 
            
            }catch(CloudBoostException e){
@@ -192,7 +192,7 @@ namespace net_sdk
 
            try {
 
-               bool.Parse(document["required"].ToString());
+               bool.Parse(dictionaryDoc["required"].ToString());
                return true;
            
            
@@ -208,7 +208,7 @@ namespace net_sdk
 
            try {
 
-               document.Add("unique",unique);
+               dictionaryDoc.Add("unique",unique);
            
            }catch(CloudBoostException e){
 
@@ -223,7 +223,7 @@ namespace net_sdk
 
 
            try { 
-            bool.Parse(document["unique"].ToString());
+            bool.Parse(dictionaryDoc["unique"].ToString());
             return true;
            
            }catch(CloudBoostException e){
@@ -240,7 +240,7 @@ namespace net_sdk
 
            try {
 
-               document.Add("relatedTo",table.document.ToString());
+               dictionaryDoc.Add("relatedTo",table.document.ToString());
            
            }catch(CloudBoostException e){
                throw new CloudBoostException(e.Message);
@@ -256,7 +256,7 @@ namespace net_sdk
            CloudTable tableObject= new CloudTable();
            try{
 
-               table = (Dictionary<string, Object>)document["relatedTo"];
+               table = (Dictionary<string, Object>)dictionaryDoc["relatedTo"];
            
            }catch(CloudBoostException e){
            throw new CloudBoostException(e.Message);
@@ -273,7 +273,7 @@ namespace net_sdk
 
            try {
 
-               document.Add("relatedToType",value);
+               dictionaryDoc.Add("relatedToType",value);
            
            
            }catch(CloudBoostException e){
@@ -286,7 +286,7 @@ namespace net_sdk
 
            try {
 
-               return document["relatedToType"].ToString();
+               return dictionaryDoc["relatedToType"].ToString();
            
            }
            catch(CloudBoostException e){
@@ -302,7 +302,7 @@ namespace net_sdk
 
            try {
 
-               document.Add("relationType",value);
+               dictionaryDoc.Add("relationType",value);
 
            }catch(CloudBoostException e){
            
@@ -317,7 +317,7 @@ namespace net_sdk
 
            try {
 
-               return document["relationType"].ToString();
+               return dictionaryDoc["relationType"].ToString();
            
            }catch(CloudBoostException e){
 
@@ -334,7 +334,7 @@ namespace net_sdk
 
            try {
 
-               document.Add("isDeletable",value);
+               dictionaryDoc.Add("isDeletable",value);
            
            }catch(CloudBoostException e){
 
@@ -347,7 +347,7 @@ namespace net_sdk
 
            try {
 
-          return  bool.Parse(document["isDeletable"].ToString());
+          return  bool.Parse(dictionaryDoc["isDeletable"].ToString());
            
            }catch(CloudBoostException e){
 
@@ -363,7 +363,7 @@ namespace net_sdk
            try {
 
 
-               document.Add("isEditable",value);
+               dictionaryDoc.Add("isEditable",value);
            }catch(CloudBoostException e){
 
                throw new CloudBoostException(e.Message);
@@ -374,7 +374,7 @@ namespace net_sdk
       public bool getIsEditable() {
            try {
 
-               return bool.Parse(document["isEditable"].ToString());
+               return bool.Parse(dictionaryDoc["isEditable"].ToString());
            
            
            }catch(CloudBoostException e){
@@ -389,7 +389,7 @@ namespace net_sdk
 
            try {
 
-               document.Add("isRenamable",value);
+               dictionaryDoc.Add("isRenamable",value);
            
            }catch(CloudBoostException e){
 
@@ -403,7 +403,7 @@ namespace net_sdk
 
            try {
 
-               return bool.Parse(document["isRenamable"].ToString());
+               return bool.Parse(dictionaryDoc["isRenamable"].ToString());
            
            }catch(CloudBoostException e){
 

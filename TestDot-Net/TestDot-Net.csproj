@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppTest.cs" />
+    <Compile Include="CloudObjectTest.cs" />
     <Compile Include="CloudTableTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

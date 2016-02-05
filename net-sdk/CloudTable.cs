@@ -124,7 +124,7 @@ namespace net_sdk
             }
         	
         Dictionary<string,Object> parames = new Dictionary<string,Object>();
-		CloudTable thisObj = this;
+		//CloudTable thisObj = this;
 		try {
 		parames.Add("data", document);		
 		parames.Add("key", CloudApp.AppKey);
@@ -133,7 +133,7 @@ namespace net_sdk
 			if(response.getStatusCode() == 200){
                 JObject body = new JObject();
                 body = (JObject)response.getResponseBody();
-                thisObj.document = Serializer.Deserialize(body);
+                this.document = Serializer.Deserialize(body);
 				
 			}else{
 				CloudBoostException e = new CloudBoostException(response.getError());
@@ -150,10 +150,11 @@ namespace net_sdk
             }
 		try{
 
-            List<string> columnList = new List<string>();
-            columnList.Add(this.document["columns"].ToString());
+            //List<string> columnList = new List<string>();
+           // columnList.Add(this.document["columns"].ToString());
             this.document.Remove("columns");
-		    this.document.Add("columns", columnList);
+		   // this.document.Add("columns", columnList);
+            this.document.Add("columns", column);
 		} catch (CloudBoostException e) {
 
             throw new CloudBoostException(e.Message);
@@ -188,7 +189,7 @@ namespace net_sdk
                 {
                     int index = columnList.IndexOf(name);
                     columnList.Remove(name);
-                    columnList.Insert(index, column.document);
+                    columnList.Insert(index, column.dictionaryDoc);
 
                 }
                 
