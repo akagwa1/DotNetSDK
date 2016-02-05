@@ -122,6 +122,49 @@ namespace TestDot_Net
 		initialize();
 
 	}
+        
+
+
+	
+	public void deleteEmployeeTable() {
+		initialize();
+
+	}
+
+	
+	public void createEmployeeTable() {
+		initialize();
+
+	}
+
+        public void createCompanyTable() {
+		initialize();
+
+	}
+
+	
+	public void createAddressTable() {
+		initialize();
+
+	}
+
+	
+	
+	
+	public void updateCompanySchema()  {
+		initialize();
+
+	}
+
+    public void duplicateTable() {
+        Utils.initMaster();
+        
+		string tableName = PrivateValidation._makeString();
+		CloudTable obj = new CloudTable(tableName);
+        obj.save();
+    
+    }
+
 
     }
 }
