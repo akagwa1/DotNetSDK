@@ -17,13 +17,13 @@ namespace TestDot_Net
                CloudTableTest cloudTableTester = new CloudTableTest();
                CloudObjectTest cloudObjectTester = new CloudObjectTest();
                cloudObjectTester.saveArray();
-               cloudObjectTester.saveArrayWithWrongDataType();
-               cloudObjectTester.SaveData();
-               cloudObjectTester.ShouldNotSaveDuplicateValue();
-               cloudObjectTester.ShouldNotSaveWithoutRequiredColumn();
-               cloudObjectTester.ShouldNotSaveWithWrongDataType();
-               cloudObjectTester.shouldUpdateVersionOnUpdate();
-               cloudObjectTester.updateAfterSave();
+               //cloudObjectTester.saveArrayWithWrongDataType();
+               //cloudObjectTester.SaveData();
+               //cloudObjectTester.ShouldNotSaveDuplicateValue();
+               //cloudObjectTester.ShouldNotSaveWithoutRequiredColumn();
+               //cloudObjectTester.ShouldNotSaveWithWrongDataType();
+               //cloudObjectTester.shouldUpdateVersionOnUpdate();
+               //cloudObjectTester.updateAfterSave();
                //cloudTableTester.SequentialTests();
            }catch(Exception ex){
 

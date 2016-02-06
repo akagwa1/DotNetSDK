@@ -149,8 +149,6 @@ namespace TestDot_Net
 	}
 
 	
-	
-	
 	public void updateCompanySchema()  {
 		initialize();
 
@@ -164,7 +162,131 @@ namespace TestDot_Net
         obj.save();
     
     }
+    public void createAndDeleteTable() {
 
+        initialize();
+        String tableName = PrivateValidation._makeString();
+        CloudTable obj = new CloudTable(tableName);
+        obj.save();
+        obj.delete();
+
+    
+    }
+    public void getTable() {
+
+        initialize();
+        String name = PrivateValidation._makeString();
+        CloudTable obj = new CloudTable(name);
+        obj.save();
+        CloudTable.get(name);
+       
+
+    
+    }
+    public void shouldGetAllTable() {
+        initialize();
+        CloudTable.getAll();
+    
+    
+    }
+    public void GetAllTable() { 
+    
+        initialize();
+        CloudTable.getAll();
+
+    }
+    public void updateNewColumnIntoTable() { 
+    
+    initialize();
+	String tableName1 = PrivateValidation._makeString();
+    String tableName2 = PrivateValidation._makeString();
+	CloudTable obj = new CloudTable(tableName1);
+    CloudTable obj1 = new CloudTable(tableName2);
+    obj.save();
+    CloudTable.get(obj);
+    CloudTable getTable = new CloudTable();
+        Column column1 = new Column("Name",net_sdk.Column.DataType.Relation, true, false);
+								column1.setRelatedTo(getTable);
+								getTable.addColumn(column1);
+                                getTable.save();
+                                CloudTable newTable = new CloudTable();
+                                Column column2 = new Column("Name",
+                                                                        net_sdk.Column.DataType.Relation, true, false);
+                                newTable.deleteColumn(column2);
+                                newTable.save();
+
+    
+    }
+    public void shouldCreateAndDeleteTable(){
+    initialize();
+   String tableName = PrivateValidation._makeString();
+   CloudTable obj = new CloudTable(tableName);
+   CloudTable table = new CloudTable();
+   table.delete();
+
+        
+        }
+    public void addColumnAfterSave() { 
+    
+    initialize();
+		String tableName = PrivateValidation._makeString();
+		CloudTable table = new CloudTable(tableName);
+        table.save();
+        CloudTable newTable = new CloudTable();
+        Column column1 = new Column("Name1", net_sdk.Column.DataType.Text, false,
+							false);
+					newTable.addColumn(column1);
+                    newTable.save();
+
+    
+    }
+    public void setTableType() { 
+    
+    initialize();
+		CloudTable table = new CloudTable(PrivateValidation._makeString());
+        table.save();
+        CloudTable newTable = new CloudTable();
+        try
+        {
+            newTable.document.Add("_type", "newType");
+        }
+        catch (CloudBoostException e1)
+        {
+            throw new CloudBoostException(e1.Message);
+        }
+        newTable.save();
+    
+    }
+    public void addColumnToExistingTable() { 
+    
+    initialize();
+		CloudTable table = new CloudTable(PrivateValidation._makeString());
+        table.save();
+       String name = PrivateValidation._makeString();
+        CloudTable newTable = new CloudTable();
+						Column col = new Column(name, net_sdk.Column.DataType.Text, false, false);
+						newTable.addColumn(col);
+						newTable.save();
+    }
+    public void renameTableFails() { 
+    
+        //net_sdk.Util.initKisenyiMaster();
+        //CloudTable table = new CloudTable(PrivateMethod._makeString());
+        //table.save();
+    
+    }
+    public void createListTable() { 
+    
+    initialize();
+	    String name = PrivateValidation._makeString();
+		CloudTable obj = new CloudTable(name);
+		Column subject = new Column("subject", net_sdk.Column.DataType.List, false, false);
+		subject.setRelatedTo(net_sdk.Column.DataType.Text);
+		Column age = new Column("age", net_sdk.Column.DataType.Number, false, false);
+		obj.addColumn(subject);
+		obj.addColumn(age);
+        obj.save();
+        }
 
     }
 }

@@ -203,7 +203,7 @@ namespace net_sdk
                 throw new CloudBoostException(e.Message); ;
             }
         }
-        private void deleteColumn(Column column) {
+        public void deleteColumn(Column column) {
             try {
                 string name = column.getColumnName();
                 ArrayList columnList = new ArrayList((ArrayList)this.document["columns"]);
@@ -315,6 +315,40 @@ namespace net_sdk
 			
 		}
 	}
+        public static void get(string tableName) {
+
+
+            CloudTable table = new CloudTable(tableName);
+		try {
+			get(table);
+		} catch (CloudBoostException e) {
+
+            throw new CloudBoostException(e.Message);
+		}
+		
+        
+        
+        
+        }
+        public static void getAll() {
+
+            if (CloudApp.AppID == null)
+            {
+                throw new CloudBoostException("App Id is missing");
+            }
+            Dictionary<string,Object> parames = new Dictionary<string,Object>();
+            try {
+                parames.Add("key", CloudApp.AppKey);
+		String url = CloudApp.ServiceUrl+"/"+CloudApp.AppID+"/table";
+		CBResponse response=CBParser.callJson(url, "POST", parames);
+
+            }catch(Exception e){
+            
+            
+            
+            }
+        
+        }
 	
 
 

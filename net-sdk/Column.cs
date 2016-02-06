@@ -249,6 +249,18 @@ namespace net_sdk
 
        
        }
+       public void setRelatedTo(DataType type)
+       {
+           try
+           {
+               this.dictionaryDoc.Add("relatedTo", type);
+           }
+           catch (Exception e)
+           {
+
+               throw new Exception(e.Message);
+           }
+       }
 
        public CloudTable getRelatedTo() {
 
