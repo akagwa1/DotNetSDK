@@ -16,9 +16,9 @@ namespace TestDot_Net
 
                CloudTableTest cloudTableTester = new CloudTableTest();
                CloudObjectTest cloudObjectTester = new CloudObjectTest();
-               cloudObjectTester.saveArray();
+              // cloudObjectTester.saveArray();
                //cloudObjectTester.saveArrayWithWrongDataType();
-               //cloudObjectTester.SaveData();
+              // cloudObjectTester.SaveData();
                //cloudObjectTester.ShouldNotSaveDuplicateValue();
                //cloudObjectTester.ShouldNotSaveWithoutRequiredColumn();
                //cloudObjectTester.ShouldNotSaveWithWrongDataType();

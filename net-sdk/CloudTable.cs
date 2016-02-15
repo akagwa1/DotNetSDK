@@ -349,9 +349,63 @@ namespace net_sdk
             }
         
         }
-	
+        public void deleteColumn(String name)
+        {
+            Column column = getColumn(name);
+            if (column == null)
+                throw new CloudBoostException("Trying to delete inexistent column");
+            if (!PrivateValidation._columnValidation(column, this))
+            {
+                throw new CloudBoostException("Can Not Delete a Reserved Column");
+            }
+            else
+            {
 
 
+                try
+                {
+                    Dictionary<string, Object> col = new Dictionary<string, Object>();
+                    this.document["columns"].ToString();
+                    for (int i = 0; i < col.length(); i++)
+                    {
+
+                        if (col.getJSONObject(i).getString("name").equals(column.document.getString("name")))
+                        {
+                            col.remove(i);
+                            break;
+                        }
+                    }
+                    this.document.put("columns", col);
+                }
+                catch (JSONException e2)
+                {
+
+                    e2.printStackTrace();
+                }
+            }
+        }
+
+public Column getColumn(String name){
+		Column col = null;
+		try {
+			Dictionary<string,Object> columnList = new Dictionary<string,Object>();
+            columnList.Add("columns",this.document["columns"].ToString());
+			for(int i=0; i<columnList.Count; i++){
+				if(columnList.ElementAt(i).ToString().Equals(name)){
+                    
+                    //   CloudObject obj=columnList.ElementAt(i).ToString();
+                   // obj = obj1;
+					//col=new Column(name, net_sdk.Column.DataType, obj.("required"), obj.getBoolean("unique"));
+					break;
+				}
+			}
+		} catch (CloudBoostException e) {
+			
+			throw new CloudBoostException(e.Message);
+		}
+		return col;
+
+	}
 
 
     }

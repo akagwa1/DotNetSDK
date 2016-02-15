@@ -147,13 +147,10 @@ namespace TestDot_Net
 		initialize();
 
 	}
-
-	
 	public void updateCompanySchema()  {
 		initialize();
 
 	}
-
     public void duplicateTable() {
         Utils.initMaster();
         
@@ -286,7 +283,61 @@ namespace TestDot_Net
 		obj.addColumn(subject);
 		obj.addColumn(age);
         obj.save();
+        CloudTable table = new CloudTable();
+        table.delete();
         }
+    public void createTableAllDataTypes()
+    {
+
+        initialize();
+        String name = PrivateValidation._makeString();
+        CloudTable custom = new CloudTable(name);
+        Column newColumn = new Column("email", net_sdk.Column.DataType.Email, false, false);
+        custom.addColumn(newColumn);
+        Column newColumn1 = new Column("name", net_sdk.Column.DataType.Text, false, false);
+        custom.addColumn(newColumn1);
+        Column newColumn2 = new Column("myurl", net_sdk.Column.DataType.URL, false, false);
+        custom.addColumn(newColumn2);
+        Column newColumn3 = new Column("age", net_sdk.Column.DataType.Number, false, false);
+        custom.addColumn(newColumn3);
+        Column newColumn4 = new Column("married", net_sdk.Column.DataType.Boolean, false,
+                false);
+        custom.addColumn(newColumn4);
+        Column newColumn5 = new Column("signuptime", net_sdk.Column.DataType.DateTime, false,
+                false);
+        custom.addColumn(newColumn5);
+        Column newColumn6 = new Column("friendlist", net_sdk.Column.DataType.Object, false,
+                false);
+        custom.addColumn(newColumn6);
+        custom.save();
+        CloudTable table = new CloudTable();
+        table.delete();
+
+    }
+        public void shouldGiveAllTable() {
+		initialize();
+
+	}
+    
+   public void shouldGiveSpecificTable() {
+		initialize();
+
+	}
+   public void shouldGiveSpecificTableByName() { 
+   
+   
+   initialize();
+		String name = PrivateValidation._makeString();
+		CloudTable table = new CloudTable(name);
+		table.save();
+        CloudTable table1 = new CloudTable();
+        CloudTable.get(name);
+
+
+   }
+  
+
+
 
     }
 }
